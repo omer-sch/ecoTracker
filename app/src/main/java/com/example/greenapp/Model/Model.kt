@@ -11,7 +11,7 @@ class Model private constructor() {
     private val database = AppLocalDatabase.db
     private var executor = Executors.newSingleThreadExecutor()
     private var mainHandler = HandlerCompat.createAsync(Looper.getMainLooper())
-
+    private val firebaseModel = FirebaseModel()
     companion object {
         val instance: Model = Model()
     }
@@ -21,24 +21,29 @@ class Model private constructor() {
     }
 
     fun getAllUsers(callback: (List<User>) -> Unit) {
-        executor.execute {
-
-            Thread.sleep(5000)
-
-            val Users = database.userDao().getAll()
-            mainHandler.post {
-                // Main Thread
-                callback(Users)
-            }
-        }
+        firebaseModel.getAllUsers(callback)
+//        executor.execute {
+//
+//            Thread.sleep(5000)
+//
+//            val Users = database.userDao().getAll()
+//            mainHandler.post {
+//                // Main Thread
+//                callback(Users)
+//            }
+//        }
     }
 
     fun addUser(user: User, callback: () -> Unit) {
-        executor.execute {
-            database.userDao().insert(user)
-            mainHandler.post {
-                callback()
-            }
-        }
+        firebaseModel.addUser(user, callback)
+//        executor.execute {
+//            database.userDao().insert(user)
+//            mainHandler.post {
+//                callback()
+//            }
+//        }
     }
+//    fun getUserByName(name:String,callback: (User?) -> Unit){
+//        firebaseModel.getUserByName(name,callback)
+//    }
 }

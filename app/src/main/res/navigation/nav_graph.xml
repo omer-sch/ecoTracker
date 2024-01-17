@@ -25,6 +25,9 @@
         <action
             android:id="@+id/action_loginFragment_to_feedActivity"
             app:destination="@id/feedActivity" />
+        <action
+            android:id="@+id/action_loginFragment_to_startFragment"
+            app:destination="@id/startFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"

@@ -9,6 +9,8 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import androidx.navigation.Navigation
+import com.example.greenapp.Model.Model
+import com.example.greenapp.Model.User
 import com.example.greenapp.R
 
 
@@ -36,9 +38,26 @@ class LoginFragment : Fragment() {
         ConnectButton = view.findViewById(R.id.Connectbtn)
         // cancelButton = view.findViewById(R.id.btnAddStudentCancel)
         messageTextView?.text = ""
+        val name=nameTextField?.text.toString()
+        val password=PasswordTextField?.text.toString()
 
         ConnectButton?.setOnClickListener {
             Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedActivity)
+
+//            Model.instance.getUserByName(name, callback = { retrievedUser ->
+//                if (retrievedUser != null) {
+//                    Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedActivity)
+//
+//                    if(password.equals(retrievedUser.password)){
+//                        Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedActivity)
+//                    }
+//                } else {
+//                    Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_startFragment)
+//
+//                    // User not found or error occurred
+//                }
+//            })
+
         }
 //        cancelButton?.setOnClickListener {
 //            Navigation.findNavController(it).popBackStack(R.id.studentsFragment, false)
@@ -54,4 +73,6 @@ class LoginFragment : Fragment() {
 //                Navigation.findNavController(it).popBackStack(R.id.studentsFragment, false)
 //            }
 //        }
+
+
 }
