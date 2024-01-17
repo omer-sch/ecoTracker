@@ -17,10 +17,6 @@
             android:name=".FeedActivity"
             android:exported="false" />
         <activity
-            android:name=".connection.RegisterActivity"
-            android:exported="false" />
-
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>

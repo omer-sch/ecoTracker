@@ -7,7 +7,6 @@ import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import com.example.greenapp.Model.User
 
-
 @Dao
 interface UserDao {
 
