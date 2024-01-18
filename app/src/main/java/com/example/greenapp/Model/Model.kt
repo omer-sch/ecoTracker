@@ -19,6 +19,9 @@ class Model private constructor() {
     interface GetAllUsersListener {
         fun onComplete(users: List<User>)
     }
+    interface GetAllPostsListener{
+        fun onComplete(posts:List<Post>)
+    }
 
     fun getAllUsers(callback: (List<User>) -> Unit) {
         firebaseModel.getAllUsers(callback)
@@ -46,4 +49,10 @@ class Model private constructor() {
 //    fun getUserByName(name:String,callback: (User?) -> Unit){
 //        firebaseModel.getUserByName(name,callback)
 //    }
+    fun getAllPosts(callback: ( List<Post>?) -> Unit){
+        firebaseModel.getAllPosts(callback)
+    }
+    fun addPost(post: Post, callback: () -> Unit){
+        firebaseModel.addPost(post, callback)
+    }
 }

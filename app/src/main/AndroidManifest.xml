@@ -14,6 +14,15 @@
         android:theme="@style/Theme.GreenApp"
         tools:targetApi="31">
         <activity
+            android:name=".Modules.Posts.PostsListActivity1"
+            android:exported="false" />
+        <activity
+            android:name=".Modules.Posts.PostsRecyclerViewActivity"
+            android:exported="false" />
+        <activity
+            android:name=".Modules.Posts.postsListActivity"
+            android:exported="false" />
+        <activity
             android:name=".FeedActivity"
             android:exported="false" />
         <activity

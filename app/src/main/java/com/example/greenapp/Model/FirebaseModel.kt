@@ -12,6 +12,7 @@ class FirebaseModel {
 
     companion object {
         const val USERS_COLLECTION_PATH = "users"
+        const val POSTS_COLLECTION_PATH = "posts"
     }
 
     init {
@@ -44,6 +45,27 @@ class FirebaseModel {
             callback()
         }
     }
+    fun getAllPosts(callback: (List<Post>) -> Unit){
+        db.collection(POSTS_COLLECTION_PATH).get().addOnCompleteListener {
+            when (it.isSuccessful) {
+                true -> {
+                    val posts: MutableList<Post> = mutableListOf()
+                    for (json in it.result) {
+                        val post = Post.fromJSON(json.data)
+                        posts.add(post)
+                    }
+                    callback(posts)
+                }
+                false -> callback(listOf())
+            }
+        }
+    }
+    fun addPost(post: Post, callback: () -> Unit) {
+        db.collection(POSTS_COLLECTION_PATH).document(post.name).set(post.json).addOnSuccessListener {
+            callback()
+        }
+    }
+
 //    fun getUserByName(name: String, callback: (User?) -> Unit) {
 //        db.collection(USERS_COLLECTION_PATH)
 //            .whereEqualTo("name", name)  // Query for documents where name matches
