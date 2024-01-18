@@ -14,17 +14,14 @@
         android:theme="@style/Theme.GreenApp"
         tools:targetApi="31">
         <activity
-            android:name=".Modules.Posts.PostsListActivity1"
-            android:exported="false" />
+            android:name=".Modules.Posts.PostsListActivity"
+            android:exported="true" />
         <activity
             android:name=".Modules.Posts.PostsRecyclerViewActivity"
-            android:exported="false" />
-        <activity
-            android:name=".Modules.Posts.postsListActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".FeedActivity"
-            android:exported="false" />
+            android:exported="true" />
         <activity
             android:name=".MainActivity"
             android:exported="true">

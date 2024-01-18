@@ -3,6 +3,8 @@ package com.example.greenapp.Modules.Connection
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
+import android.view.Menu
+import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
@@ -40,23 +42,9 @@ class LoginFragment : Fragment() {
         val password=PasswordTextField?.text.toString()
 
         ConnectButton?.setOnClickListener {
-            Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedActivity)
-
-//            Model.instance.getUserByName(name, callback = { retrievedUser ->
-//                if (retrievedUser != null) {
-//                    Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedActivity)
-//
-//                    if(password.equals(retrievedUser.password)){
-//                        Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedActivity)
-//                    }
-//                } else {
-//                    Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_startFragment)
-//
-//                    // User not found or error occurred
-//                }
-//            })
-
+            Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedFragment)
         }
+
 //        cancelButton?.setOnClickListener {
 //            Navigation.findNavController(it).popBackStack(R.id.studentsFragment, false)
 //        }

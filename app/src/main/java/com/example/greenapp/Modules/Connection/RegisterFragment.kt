@@ -50,7 +50,7 @@ class RegisterFragment : Fragment() {
 
             val user = User(name, email,password, false)
             Model.instance.addUser(user) {
-                Navigation.findNavController(it).navigate(R.id.action_registerFragment_to_feedActivity)
+                Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedFragment)
             }
         }
     }

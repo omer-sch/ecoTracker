@@ -23,11 +23,11 @@
         android:label="fragment_login"
         tools:layout="@layout/fragment_login" >
         <action
-            android:id="@+id/action_loginFragment_to_feedActivity"
-            app:destination="@id/feedActivity" />
-        <action
             android:id="@+id/action_loginFragment_to_startFragment"
             app:destination="@id/startFragment" />
+        <action
+            android:id="@+id/action_loginFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
     <fragment
         android:id="@+id/registerFragment"
@@ -35,12 +35,12 @@
         android:label="fragment_register"
         tools:layout="@layout/fragment_register" >
         <action
-            android:id="@+id/action_registerFragment_to_feedActivity"
-            app:destination="@id/feedActivity" />
+            android:id="@+id/action_registerFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
     </fragment>
-    <activity
-        android:id="@+id/feedActivity"
-        android:name="com.example.greenapp.FeedActivity"
-        android:label="activity_feed"
-        tools:layout="@layout/activity_feed" />
+    <fragment
+        android:id="@+id/feedFragment"
+        android:name="com.example.greenapp.FeedFragment"
+        android:label="fragment_feed"
+        tools:layout="@layout/fragment_feed" />
 </navigation>
