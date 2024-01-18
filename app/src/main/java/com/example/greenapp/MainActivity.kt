@@ -22,8 +22,8 @@ class MainActivity : AppCompatActivity() {
         navController = navHostFragment?.navController
         navController?.let { NavigationUI.setupActionBarWithNavController(this, it) }
 
-        val bottomNavigationView: BottomNavigationView = findViewById(R.id.mainActivityBottomNavigationView)
-        navController?.let { NavigationUI.setupWithNavController(bottomNavigationView, it) }
+       /// val bottomNavigationView: BottomNavigationView = findViewById(R.id.mainActivityBottomNavigationView)
+       // navController?.let { NavigationUI.setupWithNavController(bottomNavigationView, it) }
 
     }
 

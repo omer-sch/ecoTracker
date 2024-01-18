@@ -70,9 +70,10 @@ class PostsFragment : Fragment() {
 
         postsRcyclerView?.adapter = adapter
 
-        val addPostButton: ImageButton = view.findViewById(R.id.ibtnPostsFragmentAddStudent)
-       // val action = Navigation.createNavigateOnClickListener(PostsFragmentDirections.actionGlobalAddStudentFragment())
-       // addPostButton.setOnClickListener(action)
+        val addPostButton: ImageButton = view.findViewById(R.id.ibtnPostsFragmentAddPost)
+
+        val action = Navigation.createNavigateOnClickListener(R.id.action_feedFragment_to_addPostFragment)
+        addPostButton.setOnClickListener(action)
 
         return view
     }

@@ -42,5 +42,18 @@
         android:id="@+id/feedFragment"
         android:name="com.example.greenapp.FeedFragment"
         android:label="fragment_feed"
-        tools:layout="@layout/fragment_feed" />
+        tools:layout="@layout/fragment_feed" >
+        <action
+            android:id="@+id/action_feedFragment_to_addPostFragment"
+            app:destination="@id/addPostFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/addPostFragment"
+        android:name="com.example.greenapp.Modules.Connection.AddPostFragment"
+        android:label="fragment_add_post"
+        tools:layout="@layout/fragment_add_post" >
+        <action
+            android:id="@+id/action_addPostFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+    </fragment>
 </navigation>
