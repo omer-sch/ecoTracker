@@ -46,6 +46,9 @@
         <action
             android:id="@+id/action_feedFragment_to_addPostFragment"
             app:destination="@id/addPostFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_profileActivity"
+            app:destination="@id/profileActivity" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
@@ -56,4 +59,9 @@
             android:id="@+id/action_addPostFragment_to_feedFragment"
             app:destination="@id/feedFragment" />
     </fragment>
+    <activity
+        android:id="@+id/profileActivity"
+        android:name="com.example.greenapp.profileActivity"
+        android:label="activity_profile"
+        tools:layout="@layout/activity_profile" />
 </navigation>

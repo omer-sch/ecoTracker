@@ -21,6 +21,10 @@ class LoginFragment : Fragment() {
     private var messageTextView: TextView? = null
     private var ConnectButton: Button? = null
     private var cancelButton: Button? = null
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        setHasOptionsMenu(true)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -59,6 +63,9 @@ class LoginFragment : Fragment() {
 //                Navigation.findNavController(it).popBackStack(R.id.studentsFragment, false)
 //            }
 //        }
-
+  override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
+      menu.clear()
+      super.onCreateOptionsMenu(menu, inflater)
+  }
 
 }

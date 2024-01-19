@@ -41,6 +41,11 @@ class MainActivity : AppCompatActivity() {
                 navController?.navigateUp()
                 true
             }
+            R.id.btnProfileViewFragment->{
+                navController?.navigate(R.id.action_feedFragment_to_profileActivity)
+                true
+            }
+
             else -> navController?.let { NavigationUI.onNavDestinationSelected(item, it) } ?: super.onOptionsItemSelected(item)
         }
     }

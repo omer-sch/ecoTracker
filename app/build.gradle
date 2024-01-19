@@ -40,7 +40,7 @@ android {
 }
 
 dependencies {
-
+    implementation 'com.google.android.material:material:<version>'
     def room_version = "2.6.1"
 
     implementation "androidx.room:room-runtime:$room_version"
