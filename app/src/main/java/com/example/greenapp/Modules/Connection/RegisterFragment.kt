@@ -9,10 +9,14 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
+import android.widget.Toast
 import androidx.navigation.Navigation
 import com.example.greenapp.Model.Model
 import com.example.greenapp.Model.User
 import com.example.greenapp.R
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 
 class RegisterFragment : Fragment() {
@@ -24,9 +28,13 @@ class RegisterFragment : Fragment() {
     //private var messageTextField: EditText? = null
     //private var cancelButton: Button? = null
     private var registerBtn: Button? = null
+    //private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        // Initialize Firebase Auth
+      //  auth = Firebase.auth
+
     }
 
     override fun onCreateView(
@@ -45,18 +53,22 @@ class RegisterFragment : Fragment() {
         passwordTextField = view.findViewById(R.id.password)
         emailTextField = view.findViewById(R.id.email)
         rePasswordTextField = view.findViewById(R.id.repassword)
-        // cancelButton = view.findViewById(R.id.btnAddStudentCancel)
-        //messageTextView?.text = ""
 
         registerBtn?.setOnClickListener {
             val name = nameTextField?.text.toString()
-            val email=emailTextField?.text.toString()
+            val email = emailTextField?.text.toString()
             val password = passwordTextField?.text.toString()
+            val user=User(name,email,password,false)
 
+            Model.instance.addUser(user, requireActivity()) {
+                if(it){
+                    Toast.makeText(context, "Sign up is successful", Toast.LENGTH_SHORT).show()
+                    Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_feedFragment)
+                }
+                else{
+                    Toast.makeText(context, "Sign up is failed", Toast.LENGTH_SHORT).show()
+                }
 
-            val user = User(name, email,password, false)
-            Model.instance.addUser(user) {
-                Navigation.findNavController(it).navigate(R.id.action_loginFragment_to_feedFragment)
             }
         }
     }

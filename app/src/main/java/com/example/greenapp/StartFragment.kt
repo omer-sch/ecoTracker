@@ -9,15 +9,21 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import androidx.navigation.Navigation
+import com.google.android.material.bottomnavigation.BottomNavigationView
+import com.google.firebase.Firebase
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.auth
 
 
 class StartFragment : Fragment() {
 
     private var ConnectBtn: Button? = null
     private var RegisterBtn: Button? = null
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
+        auth = Firebase.auth
     }
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,11 +40,18 @@ class StartFragment : Fragment() {
         ConnectBtn = view.findViewById(R.id.Connectbtn)
         RegisterBtn = view.findViewById(R.id.Registerbtn)
         ConnectBtn?.setOnClickListener {
-            Navigation.findNavController(view).navigate(R.id.action_startFragment_to_loginFragment)
+            val currentUser = auth.currentUser
+            if (currentUser != null) {
+                Navigation.findNavController(view).navigate(R.id.action_startFragment_to_feedFragment)
+            }
+            else{
+                Navigation.findNavController(view).navigate(R.id.action_startFragment_to_loginFragment)
+            }
         }
         RegisterBtn?.setOnClickListener {
             Navigation.findNavController(view).navigate(R.id.action_startFragment_to_registerFragment)
         }
+
     }
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         menu.clear()

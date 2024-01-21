@@ -3,12 +3,15 @@
     xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item
-        android:id="@+id/btnProfilePosts"
+        android:id="@+id/btnMyPosts"
         android:title="Posts" />
     <item
-        android:id="@+id/btnProfileGoals"
+        android:id="@+id/btnMyGoals"
         android:title="Goals" />
     <item
-        android:id="@+id/btnProfileTips"
+        android:id="@+id/btnMyTips"
         android:title="Tips" />
+    <item
+        android:id="@+id/btnLogoutProfile"
+        android:title="Logout" />
 </menu>
