@@ -52,19 +52,42 @@ class FirebaseModel {
             }
         }
     }
+    fun getCurrentUser(callback: (List<String>) -> Unit){
+        var userId: String=auth.currentUser!!.uid
+        db.collection(USERS_COLLECTION_PATH).whereEqualTo("id", userId).get().addOnCompleteListener {
+            when (it.isSuccessful) {
+                true -> {
+                    val users: MutableList<String> = mutableListOf()
 
-    fun addUser(user:User,activity:Activity, callback: (Boolean) -> Unit) {
-        auth.createUserWithEmailAndPassword(user.email, user.password)
-            .addOnCompleteListener(activity) { task ->
-                if (task.isSuccessful) {
-                    db.collection(USERS_COLLECTION_PATH).document(user.name).set(user.json).addOnSuccessListener {
-                        callback(true)
+                    for (json in it.result) {
+                        val user = User.fromJSON(json.data)
+                        users.add(user.name)
+                        users.add(user.email)
+                        users.add(userId)
+                        callback(users)
                     }
 
-
+                }
+                false ->callback(listOf<String>())
+            }
+        }
+    }
+    fun addUser(name: String,email: String,password: String,activity:Activity, callback: (Boolean) -> Unit) {
+        auth.createUserWithEmailAndPassword(email,password)
+            .addOnCompleteListener(activity) { task ->
+                if (task.isSuccessful) {
+                    var id:String="null"
+                    if(auth.currentUser!=null){
+                         id= auth.currentUser!!.uid
+                    }
+                    val user=User(name,id,email,password,false)
+                    if (user != null) {
+                        db.collection(USERS_COLLECTION_PATH).document(user.id).set(user.json).addOnSuccessListener {
+                            callback(true)
+                        }
+                    }
                 } else {
                     callback(false)
-
                 }
             }
     }
@@ -72,6 +95,7 @@ class FirebaseModel {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
+
                     callback(true)
 
                     // Sign in success, update UI with the signed-in user's information
@@ -114,7 +138,7 @@ class FirebaseModel {
     fun getMyPosts(name: String, callback: (List<Post>?) -> Unit) {
         // Build a query to filter posts by username
         val query = db.collection(POSTS_COLLECTION_PATH)
-            .whereEqualTo("name", name) // Assuming "username" is the field containing the name
+            .whereEqualTo("id", auth.currentUser?.uid)
 
         query.get().addOnCompleteListener {
             when (it.isSuccessful) {

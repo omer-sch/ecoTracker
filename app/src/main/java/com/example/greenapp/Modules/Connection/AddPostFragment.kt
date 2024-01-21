@@ -52,11 +52,14 @@ class AddPostFragment : Fragment() {
 
         saveButton?.setOnClickListener {
             val name = nameTextField?.text.toString()
-           // val id = idTextField?.text.toString()
 
-            val post = Post(name, false)
-            Model.instance.addPost(post) {
-                Navigation.findNavController(it).navigate(R.id.action_addPostFragment_to_feedFragment)
+            Model.instance.getCurrentUser {
+
+                val post = Post(name,it[2] ,false)
+                Model.instance.addPost(post) {
+                    Navigation.findNavController(view)
+                        .navigate(R.id.action_addPostFragment_to_feedFragment)
+                }
             }
         }
     }

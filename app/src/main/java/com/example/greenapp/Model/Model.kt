@@ -38,10 +38,14 @@ class Model private constructor() {
 //            }
 //        }
     }
+    fun getCurrentUser(callback: (List<String>) -> Unit){
+        firebaseModel.getCurrentUser(callback)
 
-    fun addUser(user:User,activity: Activity ,callback: (Boolean) -> Unit) {
+    }
 
-        firebaseModel.addUser(user,activity ,callback)
+    fun addUser(name:String,email: String,password: String,activity: Activity ,callback: (Boolean) -> Unit) {
+
+        firebaseModel.addUser(name,email,password,activity ,callback)
 //        executor.execute {
 //            database.userDao().insert(user)
 //            mainHandler.post {
