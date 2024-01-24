@@ -61,7 +61,8 @@ class MyPostsFragment : Fragment() {
                     Log.i("TAG", "PostsRecyclerAdapter: Position clicked $position")
                     val post = posts?.get(position)
                     post?.let {
-                        Navigation.findNavController(view).navigate(R.id.action_myPostsFragment_to_postEditFragment)
+                        val action= MyPostsFragmentDirections.actionMyPostsFragmentToPostFullViewFragment(it.postUid,it.uri,it.name,it.description,it.id)
+                        Navigation.findNavController(view).navigate(action)
                     }
                 }
 
@@ -72,10 +73,10 @@ class MyPostsFragment : Fragment() {
 
             postsRcyclerView?.adapter = adapter
 
-          //  val addPostButton: ImageButton = view.findViewById(R.id.ibtnPostsFragmentAddPost)
+            val addPostButton: ImageButton = view.findViewById(R.id.ibtnPostsFragmentAddPost)
 
-           // val action = Navigation.createNavigateOnClickListener(R.id.action_feedFragment_to_addPostFragment)
-           // addPostButton.setOnClickListener(action)
+            val action = Navigation.createNavigateOnClickListener(R.id.action_myPostsFragment_to_addPostFragment)
+            addPostButton.setOnClickListener(action)
 
             return view
         }

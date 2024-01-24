@@ -55,15 +55,20 @@ fun getUrl(callback: (String) -> Unit){
         firebaseModel.getCurrentUser(callback)
     }
 
-    fun addUser(name:String,email: String,password: String,activity: Activity ,callback: (Boolean) -> Unit) {
+    fun addUser(name:String,email: String,password: String,uri: String,activity: Activity ,callback: (Boolean) -> Unit) {
 
-        firebaseModel.addUser(name,email,password,activity ,callback)
+        firebaseModel.addUser(name,email,password,uri,activity ,callback)
 //        executor.execute {
 //            database.userDao().insert(user)
 //            mainHandler.post {
 //                callback()
 //            }
 //        }
+    }
+    fun updateUser(name: String,uri: String,callback: () -> Unit){
+        firebaseModel.updateUser(name,uri){
+            callback()
+        }
     }
     fun login(email:String,password:String,activity: Activity ,callback: (Boolean) -> Unit){
         firebaseModel.login(email,password,activity ,callback)
@@ -129,4 +134,6 @@ fun getUrl(callback: (String) -> Unit){
     fun getPostById(postUid: String): LiveData<MutableList<Post>> {
         return post?:database.postDao().getPostById(postUid)
     }
+
+
 }

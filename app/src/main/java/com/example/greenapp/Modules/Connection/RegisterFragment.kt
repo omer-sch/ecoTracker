@@ -58,9 +58,10 @@ class RegisterFragment : Fragment() {
             val name = nameTextField?.text.toString()
             val email = emailTextField?.text.toString()
             val password = passwordTextField?.text.toString()
+
            // val user=User("0",name,email,password,false)
 
-            Model.instance.addUser(name,email,password, requireActivity()) {
+            Model.instance.addUser(name,email,password," ",requireActivity()) {
                 if(it){
                     Toast.makeText(context, "Sign up is successful", Toast.LENGTH_SHORT).show()
                     Navigation.findNavController(view).navigate(R.id.action_registerFragment_to_feedFragment)

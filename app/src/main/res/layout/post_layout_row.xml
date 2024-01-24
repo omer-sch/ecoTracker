@@ -5,8 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="?attr/selectableItemBackground"
-    >
+
+    android:background="@color/white">
 
     <ImageView
         android:id="@+id/ivPostListRowAvatar"
@@ -27,14 +27,14 @@
         android:layout_marginStart="8dp"
         android:text="TextView"
         android:textSize="20sp"
-        app:layout_constraintBottom_toTopOf="@+id/tvPostListRowID"
+        app:layout_constraintBottom_toTopOf="@+id/tvPostListRowDes"
         app:layout_constraintEnd_toStartOf="@+id/cbPostListRow"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/ivPostListRowAvatar"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/tvPostListRowID"
+        android:id="@+id/tvPostListRowDes"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="8dp"

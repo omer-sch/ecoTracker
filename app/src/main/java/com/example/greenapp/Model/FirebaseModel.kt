@@ -1,6 +1,7 @@
 package com.example.greenapp.Model
 
 import android.app.Activity
+import android.content.ContentValues.TAG
 import android.util.Log
 import androidx.core.net.toUri
 import com.google.firebase.Timestamp
@@ -68,6 +69,7 @@ class FirebaseModel {
                         users.add(user.name)
                         users.add(user.email)
                         users.add(userId)
+                        users.add(user.uri)
                         callback(users)
                     }
 
@@ -76,7 +78,22 @@ class FirebaseModel {
             }
         }
     }
-    fun addUser(name: String,email: String,password: String,activity:Activity, callback: (Boolean) -> Unit) {
+    fun updateUser(name: String,uri: String,callback: () -> Unit) {
+        val user = Firebase.auth.currentUser
+
+        if (user != null) {
+            db.collection(USERS_COLLECTION_PATH).document(user.uid).set(
+                mapOf(
+                    "name" to name,
+                    "uri" to uri,
+                    "lastUpdated" to FieldValue.serverTimestamp()
+
+                ), SetOptions.merge()).addOnCompleteListener {
+                callback()
+                }
+        }
+    }
+    fun addUser(name: String,email: String,password: String,uri:String,activity:Activity, callback: (Boolean) -> Unit) {
         auth.createUserWithEmailAndPassword(email,password)
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
@@ -84,9 +101,9 @@ class FirebaseModel {
                     if(auth.currentUser!=null){
                          id= auth.currentUser!!.uid
                     }
-                    val user=User(name,id,email,password,false)
+                    val user=User(name,id,email,password,uri,false)
 
-                        db.collection(USERS_COLLECTION_PATH).document(user.id).set(user.json).addOnSuccessListener {
+                    db.collection(USERS_COLLECTION_PATH).document(user.id).set(user.json).addOnSuccessListener {
                             callback(true)
                     }
                 } else {

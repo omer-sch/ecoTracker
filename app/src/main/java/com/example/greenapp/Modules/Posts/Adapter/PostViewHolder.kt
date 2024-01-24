@@ -24,14 +24,16 @@ class PostViewHolder (
     private val listener: PostsRecyclerViewActivity.OnItemClickListener?,
     var posts:List<Post>?): RecyclerView.ViewHolder(itemView) {
 
-    var nameTextView: TextView? = null
-    var postCheckbox: CheckBox? = null
-    var avatar:ImageView?=null
+    private var nameTextView: TextView? = null
+    private var desTextView:TextView?=null
+    private var postCheckbox: CheckBox? = null
+    private var avatar:ImageView?=null
     var post: Post? = null
 
     init {
         nameTextView = itemView.findViewById(R.id.tvPostListRowName)
         postCheckbox = itemView.findViewById(R.id.cbPostListRow)
+        desTextView  = itemView.findViewById(R.id.tvPostListRowDes)
         avatar=itemView.findViewById(R.id.ivPostListRowAvatar)
 
         postCheckbox?.setOnClickListener {
@@ -55,7 +57,7 @@ class PostViewHolder (
         }
 
         nameTextView?.text = post?.name
-
+        desTextView?.text=post?.description
         Picasso.get().load(post?.uri?.toUri()).resize(1000, 1000).centerInside().into(avatar)
         // idTextView?.text = post?.id
         postCheckbox?.apply {

@@ -64,12 +64,12 @@ class PostsListActivity : AppCompatActivity() {
 
             val nameTextView: TextView? = view?.findViewById(R.id.tvPostListRowName)
             val avatar: ImageView? =view?.findViewById(R.id.ivPostListRowAvatar)
-            val idTextView: TextView? = view?.findViewById(R.id.tvPostListRowID)
+            //val idTextView: TextView? = view?.findViewById(R.id.tvPostListRowID)
             val postCheckbox: CheckBox? = view?.findViewById(R.id.cbPostListRow)
 
             nameTextView?.text = post?.name
             Picasso.get().load(post?.uri?.toUri()).resize(1000, 1000).centerInside().into(avatar)
-            idTextView?.text = post?.id
+           // idTextView?.text = post?.id
             postCheckbox?.apply {
                 isChecked = post?.isChecked ?: false
                 tag = position

@@ -1,4 +1,4 @@
-package com.example.greenapp
+package com.example.greenapp.Modules.Posts
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment
@@ -9,14 +9,10 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
-import androidx.activity.result.contract.ActivityResultContracts
-import androidx.core.net.toUri
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.greenapp.Model.Model
-import com.example.greenapp.Model.Post
-import com.example.greenapp.Modules.Posts.PostsViewModel
+import com.example.greenapp.R
 import com.squareup.picasso.Picasso
 
 
@@ -83,6 +79,9 @@ class PostFullViewFragment : Fragment() {
             cancelButton?.visibility=View.VISIBLE
             saveButton?.visibility=View.VISIBLE
             editButton?.visibility=View.GONE
+
+            nameEditTextView?.text=args.postName
+            descriptionEditTextView?.text=args.postDes
 
         }
         cancelButton?.setOnClickListener{

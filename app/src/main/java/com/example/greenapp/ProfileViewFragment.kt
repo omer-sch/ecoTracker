@@ -7,16 +7,38 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.activity.result.contract.ActivityResultContracts
+import androidx.core.net.toUri
+import androidx.navigation.fragment.navArgs
 import com.example.greenapp.Model.Model
 import com.example.greenapp.Model.User
+import com.example.greenapp.Modules.Posts.PostFullViewFragmentArgs
+import com.squareup.picasso.Picasso
 
 class ProfileViewFragment : Fragment() {
 
-    private var messageTextView: TextView? = null
-    private var emailTextView: TextView? = null
+    private val args: PostFullViewFragmentArgs by navArgs()
+    private var imageView: ImageView? = null
     private var nameTextView: TextView? = null
+    private var descriptionTextView: TextView? = null
+    private var nameEditTextView: TextView? = null
+    private var descriptionEditTextView: TextView? = null
+    private var emailTextView: TextView?=null
+    private var name:String?=null
+    private var description:String?=null
+    private var uri:String?=null
+    private var email:String?=null
+    private var Userid:String?=null
+    private var editButton: Button?=null
+    private var cancelButton: Button?=null
+    private var saveButton: Button?=null
+    private var photoButton: Button?=null
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setHasOptionsMenu(true)
@@ -31,17 +53,66 @@ class ProfileViewFragment : Fragment() {
         return view
     }
     private fun setupUI(view: View) {
-        var user: User?=null
+
+        imageView=view.findViewById(R.id.image)
+        nameTextView=view.findViewById((R.id.profileName))
+//        descriptionTextView=view.findViewById(R.id.profileDescription)
+        editButton=view.findViewById(R.id.btnEdit)
+        nameEditTextView=view.findViewById(R.id.profileNameEdit)
+//        descriptionEditTextView=view.findViewById(R.id.profileDescriptionEdit)
+        emailTextView=view.findViewById(R.id.profileEmail)
+        cancelButton=view.findViewById(R.id.btnCancel)
+        saveButton=view.findViewById(R.id.btnSave)
+        photoButton=view.findViewById(R.id.btnProfilePhoto)
+
 
          Model.instance.getCurrentUser{
              Toast.makeText(context, " we got here.", Toast.LENGTH_SHORT).show()
-             var email= it[1]
-             var name= it[0]
-             nameTextView=view.findViewById(R.id.name)
-             emailTextView=view.findViewById(R.id.email)
+             name= it[0]
+             email= it[1]
+             Userid=it[2]
+             uri=it[3]
+
              nameTextView?.text = name
              emailTextView?.text = email
+             if(uri!=""){
+                 Picasso.get().load(uri?.toUri()).resize(1000, 1000).centerInside().into(imageView)
+
+             }
+
+         }
+
+        val pickImage= registerForActivityResult(ActivityResultContracts.GetContent()) {
+            Picasso.get().load(it).resize(5000, 5000).centerInside().into(imageView)
+
+            if (it != null) {
+                uri = it.toString()
+            }
         }
+        photoButton?.setOnClickListener{
+            pickImage.launch("image/*")
+        }
+
+
+
+        editButton?.setOnClickListener{
+            editClickVisibility()
+
+        }
+        cancelButton?.setOnClickListener{
+           afterEditVisibility()
+        }
+        saveButton?.setOnClickListener{
+            name= nameEditTextView?.text.toString()
+
+
+            Model.instance.updateUser(name!!, uri!!){
+                afterEditVisibility()
+            }
+
+        }
+
+
 
 
 
@@ -50,6 +121,32 @@ class ProfileViewFragment : Fragment() {
         menu.clear()
         inflater.inflate(R.menu.profile_menu,menu)
         super.onCreateOptionsMenu(menu, inflater)
+    }
+    fun editClickVisibility(){
+        nameTextView?.visibility=View.INVISIBLE
+        descriptionTextView?.visibility=View.INVISIBLE
+        emailTextView?.visibility=View.INVISIBLE
+        nameEditTextView?.visibility=View.VISIBLE
+//            descriptionEditTextView?.visibility=View.VISIBLE
+        cancelButton?.visibility=View.VISIBLE
+        saveButton?.visibility=View.VISIBLE
+        photoButton?.visibility=View.VISIBLE
+        editButton?.visibility=View.GONE
+        nameEditTextView?.text=name
+        // descriptionEditTextView?.text=description
+
+    }
+    fun afterEditVisibility(){
+        nameTextView?.visibility=View.VISIBLE
+       // descriptionTextView?.visibility=View.VISIBLE
+        emailTextView?.visibility=View.VISIBLE
+        nameEditTextView?.visibility=View.INVISIBLE
+        cancelButton?.visibility=View.GONE
+        saveButton?.visibility=View.GONE
+        photoButton?.visibility=View.GONE
+        editButton?.visibility=View.VISIBLE
+        nameTextView?.text = name
+        emailTextView?.text = email
     }
 
 
