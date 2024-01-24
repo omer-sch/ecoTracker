@@ -9,10 +9,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.BaseAdapter
 import android.widget.CheckBox
+import android.widget.ImageView
 import android.widget.ListView
 import android.widget.TextView
+import androidx.core.net.toUri
 import com.example.greenapp.Model.Model
 import com.example.greenapp.Model.Post
+import com.squareup.picasso.Picasso
 
 class PostsListActivity : AppCompatActivity() {
     var postsListView: ListView? = null
@@ -22,9 +25,9 @@ class PostsListActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_posts_list)
 
-        Model.instance.getAllPosts { posts ->
-            this.posts = posts
-        }
+//        Model.instance.getAllPosts { posts ->
+//            this.posts = posts
+//        }
 
         postsListView = findViewById(R.id.lvPostList)
         postsListView?.adapter = PostsListAdapter(posts)
@@ -60,12 +63,14 @@ class PostsListActivity : AppCompatActivity() {
             view = view ?: convertView
 
             val nameTextView: TextView? = view?.findViewById(R.id.tvPostListRowName)
+            val avatar: ImageView? =view?.findViewById(R.id.ivPostListRowAvatar)
             val idTextView: TextView? = view?.findViewById(R.id.tvPostListRowID)
-            val studentCheckbox: CheckBox? = view?.findViewById(R.id.cbPostListRow)
+            val postCheckbox: CheckBox? = view?.findViewById(R.id.cbPostListRow)
 
             nameTextView?.text = post?.name
-            //idTextView?.text = post?.id
-            studentCheckbox?.apply {
+            Picasso.get().load(post?.uri?.toUri()).resize(1000, 1000).centerInside().into(avatar)
+            idTextView?.text = post?.id
+            postCheckbox?.apply {
                 isChecked = post?.isChecked ?: false
                 tag = position
             }

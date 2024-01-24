@@ -7,11 +7,13 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import com.example.greenapp.Model.User
 import com.example.greenapp.base.MyApplication
+import com.example.greenapp.Model.Post
 
 
-@Database(entities = [User::class], version = 2)
+@Database(entities = [Post::class], version = 3)
+
 abstract class AppLocalDbRepository : RoomDatabase() {
-    abstract fun userDao(): UserDao
+    abstract fun postDao(): PostDao
 }
 
 object AppLocalDatabase {

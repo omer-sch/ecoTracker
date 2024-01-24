@@ -1,24 +1,28 @@
 package com.example.greenapp.Model
 
 import android.app.Activity
-import android.widget.Toast
-import com.example.greenapp.MainActivity
+import android.util.Log
+import androidx.core.net.toUri
+import com.google.firebase.Timestamp
+
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
+import com.google.firebase.firestore.FieldValue
+import com.google.firebase.firestore.SetOptions
 import com.google.firebase.firestore.firestoreSettings
 import com.google.firebase.firestore.ktx.firestore
 import com.google.firebase.firestore.memoryCacheSettings
 import com.google.firebase.firestore.persistentCacheSettings
 import com.google.firebase.ktx.Firebase
-import java.util.concurrent.Executors
-import androidx.fragment.app.Fragment
-import androidx.navigation.Navigation
-import com.example.greenapp.R
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.firebase.auth.AuthResult
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.ktx.storage
+import com.squareup.picasso.Picasso
+import java.util.UUID
+
+
 
 class FirebaseModel {
-
+    private var dbimage=Firebase.storage
     private val db = Firebase.firestore
     private var auth: FirebaseAuth
 
@@ -30,10 +34,10 @@ class FirebaseModel {
     init {
         val settings = firestoreSettings {
             setLocalCacheSettings(memoryCacheSettings {  })
-//            setLocalCacheSettings(persistentCacheSettings {  })
         }
         db.firestoreSettings = settings
         auth = Firebase.auth
+        dbimage= FirebaseStorage.getInstance()
     }
 
 
@@ -81,10 +85,9 @@ class FirebaseModel {
                          id= auth.currentUser!!.uid
                     }
                     val user=User(name,id,email,password,false)
-                    if (user != null) {
+
                         db.collection(USERS_COLLECTION_PATH).document(user.id).set(user.json).addOnSuccessListener {
                             callback(true)
-                        }
                     }
                 } else {
                     callback(false)
@@ -95,17 +98,13 @@ class FirebaseModel {
         auth.signInWithEmailAndPassword(email, password)
             .addOnCompleteListener(activity) { task ->
                 if (task.isSuccessful) {
-
                     callback(true)
-
                     // Sign in success, update UI with the signed-in user's information
-
                 } else {
                     callback(false)
                    // Toast.makeText(context, "Failed to login user.", Toast.LENGTH_SHORT).show()
                 }
             }
-
     }
     fun signOut(){
         auth.signOut()
@@ -114,8 +113,8 @@ class FirebaseModel {
 
 
 
-    fun getAllPosts(callback: (List<Post>) -> Unit){
-        db.collection(POSTS_COLLECTION_PATH).get().addOnCompleteListener {
+    fun getAllPosts(since:Long,callback: (List<Post>) -> Unit){
+        db.collection(POSTS_COLLECTION_PATH).whereGreaterThan(Post.LAST_UPDATED, Timestamp(since,0)).get().addOnCompleteListener {
             when (it.isSuccessful) {
                 true -> {
                     val posts: MutableList<Post> = mutableListOf()
@@ -128,15 +127,38 @@ class FirebaseModel {
                 false -> callback(listOf())
             }
         }
+
+    }
+    fun getUrl(callback: (String) -> Unit){
+        val uid=auth.currentUser?.uid
+        val storageReference= dbimage.getReference("Posts/")
+        val imageRef = storageReference.child("Posts/$uid")
+        callback(imageRef.downloadUrl.toString())
+    }
+    fun updatePost(postUid:String,name: String,description:String,uri:String,callback: () -> Unit){
+        db.collection(POSTS_COLLECTION_PATH).document(postUid).set(mapOf(
+            "name" to name,
+            "description" to description,
+            "uri" to uri,
+            "lastUpdated" to FieldValue.serverTimestamp()
+
+        ), SetOptions.merge()).addOnCompleteListener { callback() }
     }
     fun addPost(post: Post, callback: () -> Unit) {
-        db.collection(POSTS_COLLECTION_PATH).document(post.name).set(post.json).addOnSuccessListener {
+
+        val postUid=UUID.randomUUID()
+        post.postUid= postUid.toString()
+        val storageReference= dbimage.getReference("Posts/${post.postUid}")
+        storageReference.putFile(post.uri.toUri()).addOnSuccessListener {
+            db.collection(POSTS_COLLECTION_PATH).document(post.postUid).set(post.json).addOnSuccessListener {}
             callback()
         }
     }
 
-    fun getMyPosts(name: String, callback: (List<Post>?) -> Unit) {
+
+    fun getMyPosts(callback: (List<Post>?) -> Unit) {
         // Build a query to filter posts by username
+
         val query = db.collection(POSTS_COLLECTION_PATH)
             .whereEqualTo("id", auth.currentUser?.uid)
 
@@ -177,19 +199,7 @@ class FirebaseModel {
 
 }
 
-//    fun getUserByName(name: String, callback: (User?) -> Unit) {
-//        db.collection(USERS_COLLECTION_PATH)
-//            .whereEqualTo("name", name)  // Query for documents where name matches
-//            .get()
-//            .addOnCompleteListener {
-//                if (it.isSuccessful) {
-//                    val user = it.result?.documents?.firstOrNull()?.toObject(User::class.java)
-//                    callback(user)
-//                } else {
-//                    callback(null)  // Handle errors gracefully
-//                }
-//            }
-//    }
+
 
 
 

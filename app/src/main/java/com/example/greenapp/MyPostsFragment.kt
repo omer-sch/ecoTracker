@@ -43,7 +43,7 @@ class MyPostsFragment : Fragment() {
             progressBar?.visibility = View.VISIBLE
 
 
-            Model.instance.getMyPosts("omer") { posts ->
+            Model.instance.getMyPosts { posts ->
                 this.posts = posts
                 adapter?.posts = posts
                 adapter?.notifyDataSetChanged()
@@ -60,10 +60,9 @@ class MyPostsFragment : Fragment() {
                 override fun onItemClick(position: Int) {
                     Log.i("TAG", "PostsRecyclerAdapter: Position clicked $position")
                     val post = posts?.get(position)
-//                post?.let {
-//                    val action = PostsFragmentDirections.actionStudentsFragmentToBlueFragment(it.name)
-//                    Navigation.findNavController(view).navigate(action)
-//                }
+                    post?.let {
+                        Navigation.findNavController(view).navigate(R.id.action_myPostsFragment_to_postEditFragment)
+                    }
                 }
 
                 override fun onStudentClicked(post: Post?) {
@@ -86,7 +85,7 @@ class MyPostsFragment : Fragment() {
 
             progressBar?.visibility = View.VISIBLE
 
-            Model.instance.getMyPosts("omer") { posts ->
+            Model.instance.getMyPosts { posts ->
                 this.posts = posts
                 adapter?.posts = posts
                 adapter?.notifyDataSetChanged()

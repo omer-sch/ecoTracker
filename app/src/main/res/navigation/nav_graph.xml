@@ -59,6 +59,9 @@
         <action
             android:id="@+id/action_feedFragment_to_profileViewFragment"
             app:destination="@id/profileViewFragment" />
+        <action
+            android:id="@+id/action_feedFragment_to_postFullViewFragment"
+            app:destination="@id/postFullViewFragment" />
     </fragment>
     <fragment
         android:id="@+id/addPostFragment"
@@ -77,6 +80,9 @@
         <action
             android:id="@+id/action_myPostsFragment_to_profileViewFragment"
             app:destination="@id/profileViewFragment" />
+        <action
+            android:id="@+id/action_myPostsFragment_to_postEditFragment"
+            app:destination="@id/postEditFragment" />
     </fragment>
     <fragment
         android:id="@+id/myGoalsFragment"
@@ -113,4 +119,37 @@
             android:id="@+id/action_profileViewFragment_self"
             app:destination="@id/profileViewFragment" />
     </fragment>
+    <fragment
+        android:id="@+id/postFullViewFragment"
+        android:name="com.example.greenapp.PostFullViewFragment"
+        android:label="fragment_post_full_view"
+        tools:layout="@layout/fragment_post_full_view" >
+        <action
+            android:id="@+id/action_postFullViewFragment_to_feedFragment"
+            app:destination="@id/feedFragment" />
+        <argument
+            android:name="postUid"
+            app:argType="string" />
+        <argument
+            android:name="postImageUri"
+            app:argType="string" />
+        <argument
+            android:name="postName"
+            app:argType="string" />
+        <argument
+            android:name="postDes"
+            app:argType="string" />
+        <argument
+            android:name="postUserId"
+            app:argType="string" />
+    </fragment>
+    <fragment
+        android:id="@+id/postEditFragment"
+        android:name="com.example.greenapp.PostEditFragment"
+        android:label="fragment_post_edit"
+        tools:layout="@layout/fragment_post_edit" >
+        <action
+            android:id="@+id/action_postEditFragment_to_myPostsFragment"
+            app:destination="@id/myPostsFragment" />
+    </fragment><action android:id="@+id/action_global_postFullViewFragment" app:destination="@id/postFullViewFragment"/>
 </navigation>

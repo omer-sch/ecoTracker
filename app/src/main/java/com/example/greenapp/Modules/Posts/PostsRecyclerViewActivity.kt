@@ -23,11 +23,7 @@ class PostsRecyclerViewActivity : AppCompatActivity() {
         binding = ActivityPostsRcyclerViewBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        Model.instance.getAllPosts { posts ->
-            this.posts = posts
-            adapter?.posts = posts
-            adapter?.notifyDataSetChanged()
-        }
+
 
         postsRcyclerView = binding.rvPostREcyclerList
         postsRcyclerView?.setHasFixedSize(true)
@@ -40,8 +36,8 @@ class PostsRecyclerViewActivity : AppCompatActivity() {
                 Log.i("TAG", "StudentsRecyclerAdapter: Position clicked $position")
             }
 
-            override fun onStudentClicked(student: Post?) {
-                Log.i("TAG", "STUDENT $student")
+            override fun onStudentClicked(post: Post?) {
+                Log.i("TAG", "POST $post")
             }
         }
 
@@ -56,10 +52,10 @@ class PostsRecyclerViewActivity : AppCompatActivity() {
     override fun onResume() {
         super.onResume()
 
-        Model.instance.getAllPosts { posts ->
-            this.posts = posts
-            adapter?.posts = posts
-            adapter?.notifyDataSetChanged()
-        }
+//        Model.instance.getAllPosts { posts ->
+//            this.posts = posts
+//            adapter?.posts = posts
+//            adapter?.notifyDataSetChanged()
+//        }
     }
 }
