@@ -13,5 +13,7 @@
         android:title="Tips" />
     <item
         android:id="@+id/btnLogoutProfile"
+        android:icon="@drawable/logout_fill0_wght400_grad0_opsz24"
+        app:showAsAction="ifRoom"
         android:title="Logout" />
 </menu>

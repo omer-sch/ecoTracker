@@ -4,26 +4,23 @@
 
     <item
         android:id="@+id/btnProfileViewFragment"
+        android:icon="@drawable/person_fill0_wght400_grad0_opsz24"
+        app:showAsAction="ifRoom"
         android:title="Profile" >
-<!--            <menu>-->
-<!--                <item-->
-<!--                    android:id="@+id/btnMyPosts"-->
-<!--                    android:title="My posts">-->
-<!--                </item>-->
-<!--                <item-->
-<!--                    android:id="@+id/btnMyGoals"-->
-<!--                    android:title="My goals">-->
-<!--                </item>-->
-<!--                <item-->
-<!--                    android:id="@+id/btnMyTips"-->
-<!--                    android:title="My tips">-->
-<!--                </item>-->
-<!--            </menu>-->
+
     </item>
     <item
         android:id="@+id/btnLogout_menu"
-        android:title="logout" />
+        android:icon="@drawable/logout_fill0_wght400_grad0_opsz24"
+        app:showAsAction="ifRoom"
+        android:title="logout"
 
+        />
 
-    <item android:title="Item" />
+    <item
+        android:id="@+id/btnnotification_menu"
+        android:icon="@drawable/notifications_fill0_wght400_grad0_opsz24"
+        app:showAsAction="ifRoom"
+        android:title="notification"
+        />
 </menu>

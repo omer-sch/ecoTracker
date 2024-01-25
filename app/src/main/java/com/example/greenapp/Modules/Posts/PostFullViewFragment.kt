@@ -9,6 +9,7 @@ import android.widget.Button
 import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.navigation.fragment.navArgs
 import com.example.greenapp.Model.Model
@@ -48,6 +49,10 @@ class PostFullViewFragment : Fragment() {
     }
 
     private fun setupUI(view:View){
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+
+
+
         imageView=view.findViewById(R.id.image)
         nameTextView=view.findViewById((R.id.name))
         descriptionTextView=view.findViewById(R.id.description)
@@ -63,7 +68,7 @@ class PostFullViewFragment : Fragment() {
         nameTextView?.text=args.postName
         descriptionTextView?.text=args.postDes
         Picasso.get().load(args.postImageUri).resize(1000, 1000).centerInside().into(imageView)
-
+        actionBar?.setTitle("${args.postName}")
 
 
         Model.instance.getCurrentUser {

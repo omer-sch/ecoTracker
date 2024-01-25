@@ -8,6 +8,7 @@ import android.view.MenuInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.google.firebase.Firebase
@@ -36,6 +37,10 @@ class StartFragment : Fragment() {
 
     }
     private fun setupUI(view: View) {
+
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar?.setTitle("Eco Tracker")
+
 
         ConnectBtn = view.findViewById(R.id.Connectbtn)
         RegisterBtn = view.findViewById(R.id.Registerbtn)

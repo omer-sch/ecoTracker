@@ -12,6 +12,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import android.widget.Toast
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.core.net.toUri
 import androidx.navigation.fragment.navArgs
 import com.example.greenapp.Model.Model
@@ -53,6 +54,9 @@ class ProfileViewFragment : Fragment() {
         return view
     }
     private fun setupUI(view: View) {
+
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar?.setTitle("Profile")
 
         imageView=view.findViewById(R.id.image)
         nameTextView=view.findViewById((R.id.profileName))

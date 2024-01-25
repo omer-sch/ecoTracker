@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.example.greenapp.Model.Model
 import com.example.greenapp.Model.User
@@ -47,6 +48,9 @@ class RegisterFragment : Fragment() {
         return view
     }
     private fun setupUI(view: View) {
+
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar?.setTitle("Eco Tracker")
 
         registerBtn = view.findViewById(R.id.signupbtn)
         nameTextField = view.findViewById(R.id.username)

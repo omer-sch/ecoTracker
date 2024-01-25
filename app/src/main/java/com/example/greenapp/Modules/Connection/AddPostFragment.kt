@@ -12,6 +12,7 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.ImageView
 import androidx.activity.result.contract.ActivityResultContracts
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import com.example.greenapp.Model.Model
 import com.example.greenapp.R
@@ -47,6 +48,10 @@ class AddPostFragment : Fragment() {
     }
 
     private fun setupUI(view: View) {
+
+        val actionBar = (activity as AppCompatActivity).supportActionBar
+        actionBar?.setTitle("Add post")
+
         nameTextField = view.findViewById(R.id.etAddPostName)
         saveButton = view.findViewById(R.id.btnAddPostSave)
         cancelButton = view.findViewById(R.id.btnAddPostCancel)

@@ -10,6 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.ProgressBar
+import androidx.appcompat.app.AppCompatActivity
 import androidx.navigation.Navigation
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
@@ -34,6 +35,9 @@ class MyPostsFragment : Fragment() {
             inflater: LayoutInflater, container: ViewGroup?,
             savedInstanceState: Bundle?
         ): View? {
+
+            val actionBar = (activity as AppCompatActivity).supportActionBar
+            actionBar?.setTitle("My posts")
 
             _binding = FragmentPostsBinding.inflate(inflater, container, false)
             val view = binding.root
