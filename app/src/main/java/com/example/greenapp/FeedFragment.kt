@@ -1,11 +1,15 @@
 package com.example.greenapp
 
+import android.app.Dialog
+import android.graphics.Color
+import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
 import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
 import android.widget.ImageButton
 import android.widget.ProgressBar
 import androidx.appcompat.app.AppCompatActivity
@@ -28,6 +32,7 @@ class FeedFragment : Fragment() {
     private var postsRecyclerView: RecyclerView? = null
     private var adapter: PostsRecyclerAdapter? = null
     private var progressBar: ProgressBar? = null
+
 
     private var _binding: FragmentFeedBinding? = null
     private val binding get() = _binding!!
@@ -110,6 +115,8 @@ class FeedFragment : Fragment() {
         super.onDestroy()
         _binding = null
     }
+
+
 
 
 }

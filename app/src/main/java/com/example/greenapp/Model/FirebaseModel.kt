@@ -30,6 +30,7 @@ class FirebaseModel {
     companion object {
         const val USERS_COLLECTION_PATH = "users"
         const val POSTS_COLLECTION_PATH = "posts"
+        const val TIPS_COLLECTION_PATH="tips"
     }
 
     init {
@@ -39,6 +40,22 @@ class FirebaseModel {
         db.firestoreSettings = settings
         auth = Firebase.auth
         dbimage= FirebaseStorage.getInstance()
+
+    }
+    fun getAllTips(callback: (List<Tip>) -> Unit){
+        db.collection(TIPS_COLLECTION_PATH).get().addOnCompleteListener {
+            when (it.isSuccessful) {
+                true -> {
+                    val tips: MutableList<Tip> = mutableListOf()
+                    for (json in it.result) {
+                        val tip = Tip.fromJSON(json.data)
+                        tips.add(tip)
+                    }
+                    callback(tips)
+                }
+                false -> callback(listOf())
+            }
+        }
     }
 
 
@@ -212,6 +229,7 @@ class FirebaseModel {
             }
         }
     }
+
 
 
 }

@@ -80,6 +80,16 @@ fun getUrl(callback: (String) -> Unit){
     fun getUserByName(name:String,callback: (List<User>?) -> Unit){
         firebaseModel.getUserByName(name,callback)
     }
+
+    fun getAllTips(callback: (List<Tip>?) -> Unit){
+        firebaseModel.getAllTips(callback)
+    }
+
+    fun refreshAllTips() {
+
+    }
+
+
     fun getAllPosts():LiveData<MutableList<Post>>{
         refreshAllPosts()
         return posts?:database.postDao().getAll()
@@ -134,6 +144,9 @@ fun getUrl(callback: (String) -> Unit){
     fun getPostById(postUid: String): LiveData<MutableList<Post>> {
         return post?:database.postDao().getPostById(postUid)
     }
+
+
+
 
 
 }
